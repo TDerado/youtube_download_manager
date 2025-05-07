@@ -1,0 +1,5 @@
+colorama==0.4.6
+future==1.0.0
+pytube==15.0.0
+pytubefix==8.13.1
+tqdm==4.67.1
