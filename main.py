@@ -37,10 +37,10 @@ def download_link(url, resolution="h", output="my_downloads"):
     t = ProgressBar(unit='B', miniters=1)
     yt = YouTube(url, on_progress_callback=t.update_to)
     if re.search('[^A-Za-z0-9 _]+', output):
-        output = re.sub('[^A-Za-z0-9 ]+', '', output)
+        output = re.sub('[^A-Za-z0-9 _]+', '', output)
         print(f"\nOutput file cannot have special characters, modifiying output folder name >>> {output}")
     try:
-        folder_name = re.sub('[^A-Za-z0-9 ]+', '', yt.title)
+        folder_name = re.sub('[^A-Za-z0-9 _]+', '', yt.title)
         if resolution == 'h':
             stream = yt.streams.filter(only_video=True, progressive=False).first()
         elif resolution == 'l':
@@ -81,6 +81,7 @@ if __name__ == "__main__":
     url = ""
     resolution = "h"
     output = "my_downloads"
+
     if args is None:
         print('could not process the arguments cancelling...')
         raise SystemExit
@@ -96,6 +97,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f'unknown error with argument construction: {e}, cancelling...')
         raise SystemExit from e
+    
     result = download_link(url, resolution=resolution, output=output)
     if result == -1:
         print(f"No videos of resolution {resolution} found")
